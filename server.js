@@ -92,13 +92,13 @@ function streamTweets() {
     // Get all stream rules
 
     currentRules = await getRules();
-    console.log("current rules", currentRules);
+    // console.log("current rules", currentRules);
     //Delete all stream rules
     const isDeleted = await deleteRules(currentRules);
-    console.log("is deleted",isDeleted);
+    // console.log("is deleted",isDeleted);
     // Set rules based on array above
     const rulesSet = await setRules();
-    console.log("rules set", rulesSet);
+    // console.log("rules set", rulesSet);
   } catch (error) {
     console.error(error);
     process.exit(1);
@@ -108,7 +108,7 @@ function streamTweets() {
 })();
 
 // Routers
-const tweetValidator = require("./router/tweetValidator");
+const tweetAnalyzer = require("./router/tweetAnalyzer");
 const tradeSignals = require("./router/tradeSignals");
 
 app.use(cors());
@@ -118,7 +118,7 @@ app.get("/", (_req, res) => {
   res.status(200).json("Welcome to Inverse Cramer Server");
 });
 
-app.use("/tweet-validator", tweetValidator);
+app.use("/tweet-analyzer", tweetAnalyzer);
 app.use("/trade-signals", tradeSignals);
 
 app.listen(PORT, (_req, _res) => {
